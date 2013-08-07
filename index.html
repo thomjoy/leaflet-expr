@@ -2,12 +2,12 @@
 <html>
 <head>
     <title>USGS</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset='utf-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
 
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
-    <link rel="styleshet" href="http://localhost:8000/Leaflet.markercluster-master/dist/MarkerCluster.Default.css" />
-    <link rel="styleshet" href="http://localhost:8000/Leaflet.markercluster-master/dist/MarkerCluster.css" />
+    <link rel='stylesheet' href='http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css' />
+    <link rel='styleshet' href='http://localhost:8000/Leaflet.markercluster-master/dist/MarkerCluster.Default.css' />
+    <link rel='styleshet' href='http://localhost:8000/Leaflet.markercluster-master/dist/MarkerCluster.css' />
 
     <style>
         body { padding: 0; margin: 0; }
@@ -27,15 +27,53 @@
             font-size: 15px;
             line-height: 38px;
         }
+
+        .eq-info {
+            overflow: hidden;
+        }
+
+        .mag {
+            color: #fff;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 2px;
+            padding-left: 3px;
+            padding-right: 3px;
+            border-radius: 4px;
+            max-width: 24px;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .mag0 { background-color: #666; }
+        .mag1 { background-color: green; }
+        .mag2 { background-color: green; }
+        .mag3 { background-color: green; }
+        .mag4 { background-color: yellow; }
+        .mag5 { background-color: yellow; }
+        .mag6 { background-color: yellow; }
+        .mag7 { background-color: red; }
+        .mag8 { background-color: red; }
+        .mag9 { background-color: red; }
+
+        .place {
+            color: #333;
+            font-size: 14px;
+        }
+
+        .time {
+            color: #666;
+            font-size: 12px;
+        }
     </style>
 
-    <script src="//cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
-    <script src="http://localhost:8000/Leaflet.markercluster-master/dist/leaflet.markercluster-src.js"></script>
+    <script src='//cdn.leafletjs.com/leaflet-0.6.4/leaflet.js'></script>
+    <script src='http://localhost:8000/Leaflet.markercluster-master/dist/leaflet.markercluster-src.js'></script>
 
-    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script src='http://code.jquery.com/jquery-2.0.3.min.js'></script>
 </head>
 <body>
-    <div id="map"></div>
+    <div id='map'></div>
     <script>
         var cloudmadeUrl = 'http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png'
             cloudmadeAttribution = 'Map data &copy; 2013 OpenStreetMap contributors, Imagery &copy; 2013 CloudMade',
@@ -50,7 +88,9 @@
                     var p = feature.properties,
                         g = feature.geometry.coordinates,
                         m = L.marker(new L.LatLng(g[1], g[0]));
-                    layer.bindPopup(p.place + ' ' + p.mag);
+                    console.log(p);
+                    var magClass = 'mag' + Math.floor(p.mag);
+                    layer.bindPopup('<div class="eq-info"><div class="mag ' +  magClass + '">' + p.mag + '</div> <div class="place">' + p.place + '</div></div><div class="time">' + new Date(p.time).toString() + '</div>');
                     //points.push(m);
                 }
             });
