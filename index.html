@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>USGS</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
+    <link rel="styleshet" href="http://localhost:8000/Leaflet.markercluster-master/dist/MarkerCluster.Default.css" />
+    <link rel="styleshet" href="http://localhost:8000/Leaflet.markercluster-master/dist/MarkerCluster.css" />
+
+    <style>
+        body { padding: 0; margin: 0; }
+        #map { width: 100%; }
+        .eq-cluster {
+            background-color: dodgerblue;
+            border: 1px solid lightblue;
+            border-radius: 40px;
+            box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.1);
+        }
+        .eq-cluster div {
+            color: #fff;
+            text-align: center;
+            font-weight: bold;
+            line-height: 38px;
+        }
+    </style>
+
+    <script src="//cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+    <script src="http://localhost:8000/Leaflet.markercluster-master/dist/leaflet.markercluster-src.js"></script>
+
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+</head>
+<body>
+    <div id="map"></div>
+    <script>
+        var cloudmadeUrl = 'http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png'
+            cloudmadeAttribution = 'Map data &copy; 2013 OpenStreetMap contributors, Imagery &copy; 2013 CloudMade',
+            cloudmade = L.tileLayer(cloudmadeUrl, {maxZoom: 18, attribution: cloudmadeAttribution}),
+            map = L.map('map', {zoom: 6, layers: [cloudmade]});
+            def = $.getJSON('http://localhost:8000/all_day.geojson');
+
+        $.when( def ).done( function( geoJSON ) {
+            var points = [];
+            var geoJSONLayer = L.geoJson(geoJSON, {
+                onEachFeature: function (feature, layer) {
+                    var p = feature.properties,
+                        g = feature.geometry.coordinates,
+                        m = L.marker(new L.LatLng(g[1], g[0]));
+                    layer.bindPopup(p.place + ' ' + p.mag);
+                    //points.push(m);
+                }
+            });
+
+            $('#map').css('height', function() {
+                return document.height;
+            });
+
+            var markers = L.markerClusterGroup({
+                maxClusterRadius: 120,
+                iconCreateFunction: function( cluster ) {
+                    console.log(cluster._childCount);
+
+                    return L.divIcon({ html: '<div> ' + cluster.getChildCount() + '</div>', className: 'eq-cluster', iconSize: L.point(40, 40) });
+                }
+            });
+
+            //debugger;
+
+            markers.addLayer(geoJSONLayer);
+            map.addLayer(markers);
+            map.setView([33.97980872872457, -118.267822265625], 6);
+        });
+
+        //map.on('click', function(e) { console.log(e); })
+    </script>
+</body>
+</html>
