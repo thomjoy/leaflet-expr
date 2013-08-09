@@ -17,7 +17,6 @@
             opacity: 0.9;
             border: 4px solid rgba(255, 255, 255, 0.3);
             border-radius: 40px;
-            
         }
         .eq-cluster div {
             color: #fff;
@@ -28,10 +27,7 @@
             line-height: 38px;
         }
 
-        .eq-info {
-            overflow: hidden;
-        }
-
+        .eq-info { overflow: hidden; }
         .mag {
             color: #fff;
             font-size: 12px;
@@ -56,21 +52,13 @@
         .mag8 { background-color: red; }
         .mag9 { background-color: red; }
 
-        .place {
-            color: #333;
-            font-size: 14px;
-        }
-
-        .time {
-            color: #666;
-            font-size: 12px;
-        }
+        .place { color: #333; font-size: 14px; }
+        .time { color: #666; font-size: 12px; }
     </style>
 
     <script src='//cdn.leafletjs.com/leaflet-0.6.4/leaflet.js'></script>
     <script src='http://localhost:8000/Leaflet.markercluster-master/dist/leaflet.markercluster-src.js'></script>
-
-    <script src='http://code.jquery.com/jquery-2.0.3.min.js'></script>
+    <script src='//code.jquery.com/jquery-2.0.3.min.js'></script>
 </head>
 <body>
     <div id='map'></div>
@@ -88,21 +76,18 @@
                     var p = feature.properties,
                         g = feature.geometry.coordinates,
                         m = L.marker(new L.LatLng(g[1], g[0]));
-                    console.log(p);
+
                     var magClass = 'mag' + Math.floor(p.mag);
                     layer.bindPopup('<div class="eq-info"><div class="mag ' +  magClass + '">' + p.mag + '</div> <div class="place">' + p.place + '</div></div><div class="time">' + new Date(p.time).toString() + '</div>');
-                    //points.push(m);
                 }
             });
 
-            $('#map').css('height', function() {
-                return document.height;
-            });
+            $('#map').css('height', function() { return document.body.clientHeight || '800px'; });
 
             var markers = L.markerClusterGroup({
                 maxClusterRadius: 120,
                 iconCreateFunction: function( cluster ) {
-                    console.log(cluster._childCount);
+                    console.log('cluster count: ' + cluster._childCount);
 
                     return L.divIcon({ html: '<div> ' + cluster.getChildCount() + '</div>', className: 'eq-cluster', iconSize: L.point(40, 40) });
                 }
