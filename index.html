@@ -6,8 +6,8 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
 
     <link rel='stylesheet' href='http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css' />
-    <link rel='styleshet' href='http://localhost:8000/Leaflet.markercluster-master/dist/MarkerCluster.Default.css' />
-    <link rel='styleshet' href='http://localhost:8000/Leaflet.markercluster-master/dist/MarkerCluster.css' />
+    <link rel='styleshet' href='Leaflet.markercluster-master/dist/MarkerCluster.Default.css' />
+    <link rel='styleshet' href='Leaflet.markercluster-master/dist/MarkerCluster.css' />
 
     <style>
         body { padding: 0; margin: 0; }
@@ -57,7 +57,7 @@
     </style>
 
     <script src='//cdn.leafletjs.com/leaflet-0.6.4/leaflet.js'></script>
-    <script src='http://localhost:8000/Leaflet.markercluster-master/dist/leaflet.markercluster-src.js'></script>
+    <script src='Leaflet.markercluster-master/dist/leaflet.markercluster-src.js'></script>
     <script src='//code.jquery.com/jquery-2.0.3.min.js'></script>
 </head>
 <body>
@@ -67,7 +67,7 @@
             cloudmadeAttribution = 'Map data &copy; 2013 OpenStreetMap contributors, Imagery &copy; 2013 CloudMade',
             cloudmade = L.tileLayer(cloudmadeUrl, { maxZoom: 18, attribution: cloudmadeAttribution }),
             map = L.map('map', {zoom: 6, layers: [cloudmade]});
-            def = $.getJSON('http://localhost:8000/all_day.geojson');
+            def = $.getJSON('all_day.geojson');
 
         $.when( def ).done( function( geoJSON ) {
             var points = [];
