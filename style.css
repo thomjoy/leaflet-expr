@@ -1,0 +1,44 @@
+body { padding: 0; margin: 0; }
+#map { width: 100%; }
+.eq-cluster {
+    background-color: dodgerblue;
+    opacity: 0.9;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-radius: 40px;
+}
+.eq-cluster div {
+    color: #fff;
+    text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 38px;
+}
+
+.eq-info { overflow: hidden; }
+.mag {
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 2px;
+    padding-left: 3px;
+    padding-right: 3px;
+    border-radius: 4px;
+    max-width: 24px;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.mag0 { background-color: #666; }
+.mag1 { background-color: green; }
+.mag2 { background-color: green; }
+.mag3 { background-color: green; }
+.mag4 { background-color: yellow; }
+.mag5 { background-color: yellow; }
+.mag6 { background-color: yellow; }
+.mag7 { background-color: red; }
+.mag8 { background-color: red; }
+.mag9 { background-color: red; }
+
+.place { color: #333; font-size: 14px; }
+.time { color: #666; font-size: 12px; }
